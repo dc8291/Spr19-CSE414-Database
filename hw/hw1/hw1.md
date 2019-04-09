@@ -6,7 +6,7 @@
 
 **Assigned date:** Monday, April 1, 2019
 
-**Due date:** Friday, April 5, 2019. You have 5 days for this homework.
+**Due date:** Friday, ~~April 5~~  April 8, 2019. You have ~~5 days~~ 1 week for this homework.
 
 **Questions:** Make sure your post them on the [discussion board](https://piazza.com/washington/spring2019/cse414).
 
