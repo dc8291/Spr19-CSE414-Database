@@ -1,0 +1,11 @@
+The idea of having a DBMS on the cloud is very appealing since multiple people can work on the same database from anywhere.
+This allows companies to scale-up quickly.
+However, there could be privacy issues if the company has access to your database.
+
+Additionally, my personal experience shows that it can be inconsistent.
+For example, my problem 4 and 5 queries executed in a range of time.
+The range of execution time varied from 6 minutes to 11 minutes on the exact same code.
+Although the output was the same, getting different time for same code was confusing and a bit frustrating.
+I am not quite sure if it's because of my inefficient query or my connection.
+
+Overall, I believe this exposure to the cloud DBMS was very educational and useful.
