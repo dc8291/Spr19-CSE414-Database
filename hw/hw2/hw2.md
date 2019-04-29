@@ -61,7 +61,7 @@ But make sure that your relations include all the attributes listed above.
 In addition, make sure you impose the following constraints to the tables above:
 - The primary key of the `FLIGHTS` table is `fid`.
 - The primary keys for the other tables are `cid`, `mid`, and `did` respectively. Other than these, *do not assume any other attribute(s) is a key / unique across tuples.*
-- `Flights.carrier_id` references `Carrier.cid`
+- `Flights.carrier_id` references `Carriers.cid`
 - `Flights.month_id` references `Months.mid`
 - `Flights.day_of_week_id` references `Weekdays.did`
 

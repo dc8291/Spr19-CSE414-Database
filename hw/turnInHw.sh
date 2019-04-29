@@ -13,5 +13,6 @@ else
     echo "Re-creating tag '$1'... (now $COMMIT)"
 fi
 echo "Now syncing with origin..."
-git push origin --mirror #--atomic
+# git push origin --mirror #--atomic  note: this causes errors
+git push origin --tags #--atomic
 echo "Please verify in gitlab that your tag '$1' matches what you expect. "
