@@ -1,0 +1,7 @@
+SELECT x.p1, max(x.y) as z
+FROM (SELECT p1.p1 as p1, count(*) as y
+     FROM person_living as x, parent_child as p1, parent_child as p2
+     WHERE x.x = p.p1
+     AND p1.p1 = p2.p1
+     GROUP BY p1.p1, p2.p1) as x
+GROUP BY x.p1

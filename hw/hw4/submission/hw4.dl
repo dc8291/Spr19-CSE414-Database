@@ -100,7 +100,6 @@ p3(x, m1, m2):- person_living(x), m1 = min n:{A(_,x,n)}, m2 = max n:{A(_,x,n)}.
 .decl numberLivingDescendents(x:PersonType, n: number)
 .output p4(filename="hw4-4.ans")
 .output p4(IO=stdout)
-.output mom(filename="yee.ans")
 
 /*
   1. MCA means that the descendent of a woman include all the person_living

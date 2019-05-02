@@ -1,0 +1,14 @@
+T1(p) = person_living(p) Join[p=name] male(name)
+T2(p2)= parent_child(p1) Join[p1=name] female(name)
+T3(p) = T1(p)-T2(p2)
+T4(p) = Project[p](T3)
+
+
+/*
+(SELECT a.p
+FROM person_living as a, male as b
+WHERE a.p = b.name) EXCEPT
+(SELECT c.p2
+FROM parent_child as c, female as d
+WHERE c.p1=d.name)
+*/
