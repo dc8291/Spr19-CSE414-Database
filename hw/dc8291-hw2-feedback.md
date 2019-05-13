@@ -1,4 +1,4 @@
-# CSE 344 Homework 2: Basic SQL Queries
+# CSE 414 Homework 2: Basic SQL Queries
 
 UW Net ID: dc8291
 
