@@ -5,7 +5,7 @@ To be able to manipulate semistructured data in JSON and practice using a NoSQL 
 
 **Assigned date:** Wednesday, May 1, 2019.
 
-**Due date:** Friday, May 10, 2019. You have 1 week for this homework.
+**Due date:** Monday, May 13, 2019. You have 1 week for this homework.
 
 **Questions:** Post them on the Piazza discussion board. Tag your post with "Asterix" on Piazza if it pertains to the syntax of SQL++ / AsterixDB installation problems. Otherwise tag your questions with "HW5."
 
