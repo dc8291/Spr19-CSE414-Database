@@ -1,0 +1,7 @@
+SELECT r.`#text` as religion, count(c.name) as num_countries
+FROM hw5.world x, x.mondial.country c,
+(CASE WHEN c.religions IS missing THEN []
+     WHEN IS_ARRAY(c.religions) THEN c.religions
+     ELSE [c.religions] END) AS r
+GROUP BY r.`#text`
+ORDER BY num_countries desc;

@@ -1,0 +1,21 @@
+/*
+  1. Obtain list of mountain and sea with their country codes
+  2. Join two country lists
+  3. Brute force through every possible pairs of countries to see if they exist in the mountain and sea
+  Duration of all jobs: 1237.399 sec
+*/
+
+SELECT DISTINCT c1.name as first_country, c2.name as second_country
+FROM hw5.world x,x.mondial.country c1, x.mondial.country c2,
+  (SELECT word_tokens(m.`-country`) as mcode
+      FROM x.mondial.mountain m
+      WHERE ARRAY_COUNT(word_tokens(m.`-country`)) >= 2) as mc,
+  (SELECT  word_tokens(s.`-country`) as scode
+    FROM x.mondial.sea s
+    WHERE ARRAY_COUNT(word_tokens(s.`-country`)) >= 2) as sc
+WHERE c1.`-car_code` > c2.`-car_code`
+AND LOWER(c1.`-car_code`) in mc.mcode
+AND LOWER(c1.`-car_code`) in sc.scode
+AND LOWER(c2.`-car_code`) in mc.mcode
+AND LOWER(c2.`-car_code`) in sc.scode
+;

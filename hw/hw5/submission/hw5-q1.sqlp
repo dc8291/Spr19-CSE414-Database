@@ -1,0 +1,7 @@
+SELECT z.name as city
+FROM hw5.world x, x.mondial.country c, c.province p,
+  (CASE WHEN p.city IS missing THEN []
+       WHEN IS_ARRAY(p.city) THEN p.city
+       ELSE [p.city] END) AS z
+WHERE c.name = "Peru"
+ORDER BY z.name;
