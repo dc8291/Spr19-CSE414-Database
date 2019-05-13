@@ -1,0 +1,47 @@
+/*
+  Nest the appropriate properties
+*/
+
+SELECT DISTINCT allx.first_country as first_country, allx.second_country as second_country,
+gm as mountain, gs as sea
+FROM
+    (SELECT c1.name as first_country, c2.name as second_country, smtable.mname, smtable.sname
+    FROM hw5index.country c1, hw5index.country c2,
+      (SELECT word_tokens(m.`-country`) as mcode, m.name as mname, s.name as sname, word_tokens(s.`-country`) as scode
+          FROM hw5index.mountain m, hw5index.sea s
+          WHERE ARRAY_COUNT(word_tokens(m.`-country`)) >= 2
+          AND ARRAY_COUNT(word_tokens(s.`-country`)) >= 2) as smtable
+    WHERE c1.`-car_code` > c2.`-car_code`
+    AND LOWER(c1.`-car_code`) in smtable.mcode
+    AND LOWER(c1.`-car_code`) in smtable.scode
+    AND LOWER(c2.`-car_code`) in smtable.mcode
+    AND LOWER(c2.`-car_code`) in smtable.scode) as allx
+LET gm = (SELECT DISTINCT ally.mname as mountain
+         FROM
+           (SELECT c1.name as first_country, smtable.mname
+           FROM hw5index.country c1, hw5index.country c2,
+             (SELECT word_tokens(m.`-country`) as mcode, m.name as mname, s.name as sname, word_tokens(s.`-country`) as scode
+                 FROM hw5index.mountain m, hw5index.sea s
+                 WHERE ARRAY_COUNT(word_tokens(m.`-country`)) >= 2
+                 AND ARRAY_COUNT(word_tokens(s.`-country`)) >= 2) as smtable
+           WHERE c1.`-car_code` > c2.`-car_code`
+           AND LOWER(c1.`-car_code`) in smtable.mcode
+           AND LOWER(c1.`-car_code`) in smtable.scode
+           AND LOWER(c2.`-car_code`) in smtable.mcode
+           AND LOWER(c2.`-car_code`) in smtable.scode) as ally
+         WHERE allx.first_country = ally.first_country),
+   gs = (SELECT DISTINCT ally.sname as sea
+         FROM
+           (SELECT c1.name as first_country, smtable.sname
+           FROM hw5index.country c1, hw5index.country c2,
+             (SELECT word_tokens(m.`-country`) as mcode, m.name as mname, s.name as sname, word_tokens(s.`-country`) as scode
+                 FROM hw5index.mountain m, hw5index.sea s
+                 WHERE ARRAY_COUNT(word_tokens(m.`-country`)) >= 2
+                 AND ARRAY_COUNT(word_tokens(s.`-country`)) >= 2) as smtable
+           WHERE c1.`-car_code` > c2.`-car_code`
+           AND LOWER(c1.`-car_code`) in smtable.mcode
+           AND LOWER(c1.`-car_code`) in smtable.scode
+           AND LOWER(c2.`-car_code`) in smtable.mcode
+           AND LOWER(c2.`-car_code`) in smtable.scode) as ally
+         WHERE allx.first_country = ally.first_country)
+;

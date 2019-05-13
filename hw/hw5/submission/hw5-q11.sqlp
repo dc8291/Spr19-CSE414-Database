@@ -1,0 +1,18 @@
+/*
+  Same thing as q9 but with different datasets
+  NOTE: SOMETIMES OUTPUTS DIFFERENT ANSWERS (no idea why this happens)
+  Duration: 90.06 seconds
+*/
+
+SELECT DISTINCT c1.name as first_country, c2.name as second_country
+FROM hw5index.country c1, hw5index.country c2,
+  (SELECT word_tokens(m.`-country`) as mcode, word_tokens(s.`-country`) as scode
+      FROM hw5index.mountain m, hw5index.sea s
+      WHERE ARRAY_COUNT(word_tokens(m.`-country`)) >= 2
+      AND ARRAY_COUNT(word_tokens(s.`-country`)) >= 2) as smtable
+WHERE c1.`-car_code` > c2.`-car_code`
+AND LOWER(c1.`-car_code`) in smtable.mcode
+AND LOWER(c1.`-car_code`) in smtable.scode
+AND LOWER(c2.`-car_code`) in smtable.mcode
+AND LOWER(c2.`-car_code`) in smtable.scode
+;

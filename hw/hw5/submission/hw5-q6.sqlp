@@ -1,0 +1,19 @@
+/*
+  1. Use q5 code to obtain list
+  2. Nest the lists by using the LET syntax
+  3. Left Outer Join the country list with the initial list by the country code to get countries without mountains
+  4. Select valid parameters
+  5. Order by counting size of array for g
+*/
+
+
+SELECT DISTINCT c.`-car_code` as country_code, c.name as country_name, g as mountains
+FROM hw5.world x, x.mondial.country c LEFT OUTER JOIN
+      (SELECT m.name as name, m_country as car_code, m.height as height
+       FROM x.mondial.mountain m, split(m.`-country`, ' ') as m_country) as mc
+       ON c.`-car_code` = mc.car_code
+LET g = (SELECT mc1.name as mountain, mc1.height as height
+         FROM (SELECT m1.name as name, m_country1 as car_code, m1.height as height
+               FROM x.mondial.mountain m1, split(m1.`-country`, ' ') as m_country1) as mc1
+         WHERE mc1.car_code = mc.car_code)
+ORDER BY ARRAY_COUNT(g) desc;
