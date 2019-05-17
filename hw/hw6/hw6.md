@@ -32,7 +32,7 @@ To help you debug, we provide a subset of the data on [the course website](https
 Here is a rough outline on how to do the HW:
 
 - Sign up for AWS
-- Apply for credit for AWS
+- Accept AWS Educate Invitation
 - Complete the HW locally
 - Run your solutions on AWS Elastic MapReduce one at a time when you are fairly confident with your solutions
 
@@ -40,19 +40,37 @@ Here is a rough outline on how to do the HW:
 
 Follow these steps to set up your Amazon Web Services account.
 
-1. If you do not already have an Amazon account, go to [their website](http://aws.amazon.com/) and sign up. Note: Amazon will ask you for your credit card information during the setup process. *If you follow these instructions and do local testing first you should NOT need to spend any money.* Sign in to your AWS console, go to "Support -> Support center" in the navigation bar, and locate your *account number*.
-2. To get $ to use Amazon AWS, you must apply for credits by going to their [education website](https://aws.amazon.com/education/awseducate/apply/). *You must use your UW email address, <your_uwid>@uw.edu, when registering for the credits, as they use this to verify your identity.* Leave the promo code blank, and enter your AWS account number on the next page. Make sure you *do not* check the starter account option on the final page as that has limited permissions which may cause problems.
-3. After applying, you will have to wait to be approved. You should get an email when your application has been approved, which gives you a credit code. Make sure you check the spam folder. Once you have it, go to [the AWS website](http://aws.amazon.com/awscredits/) and apply the credit. We have no control over how long this can take, but was told it can range from seconds to days. Hence, it is crucial that you apply ASAP!
+1. You should have received an e-mail from AWS with the subject "You have been invited to join an AWS Educate Classroom" (**NOTE:** If you have not received this e-mail, notify the course staff immediately). Open the e-mail and click on the sign-in link to "AWS Educate" near the end of the message. If you do not have an Amazon Web Services account yet you will need to make one. Make sure that you use the same e-mail address that the e-mail was sent to, otherwise you will be unable to utilize the credits that we have given you. You will also likely need to apply for an AWS Educate account, if it asks for a promo code you can leave that section blank as it is not necessary. **Make sure to do this ASAP as the application can take some time**.
 
-**IMPORTANT: If you exceed the credit you are given, Amazon will charge your credit card without warning. If you run AWS in any other way rather than how we instruct you to do so below, you must remember to manually terminate the AWS clusters when you are done. While the credit that you receive should be more than enough for this homework assignment, but you should still monitor your billing usage by going to [their billing website](https://console.aws.amazon.com/billing/home) and clicking on "Bills" (upper left).**
+2. After creating an account you should end up on the AWS Educate landing page that looks like so:
 
-You should get $100 from AWS once your application is approved. The credits that you have left over after the assignment are for you to keep, but *if you exceeded the credits due to forgetting to turn off your clusters, mining bitcoins, etc. then you will be responsible for paying the extra bill.*
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/aws_educate_landing.PNG" width="700"/>
+
+    If not, go back to the e-mail and click on the link again or go to [this link](https://www.awseducate.com/student/s/).
+
+3. Click on "My Classrooms" on the top of the page and you should be taken to a page that looks like this:
+
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/accept_invitation.PNG" width="700"/>
+
+    Accept the invitation and then the invitation should change to a button with the message "Go to classroom" and an arrow:
+
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/accepted_invitation.PNG" width="700"/>
+
+    This should take you to a page that looks like this:
+
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/vocareum.PNG" width="700"/>
+
+    This site is no longer part of Amazon but a third-party provider that they use as the entry portal. If you click on "AWS Console" on the right side of the page it will take you back to Amazon Web Services in the precise location where you will utilize S3 and EMR. The instructions on using these tools will come later in this homework specification.
+
+    **IMPORTANT: Keep track of the amount of your credits that you are using by going back to the Vocareum portal... If you get close to $0 in credits let us know and we can provide you with more. However you should not need more than $50 of credits for this homework. If you had to enter credit card information when signing up for AWS they will likely charge your account if you go over the credit threshold so you should make sure to monitor the amount of credits that you have in your account.**
+
+    You should get $50 from AWS via the Educate Classroom. The credits that you have left over after the assignment are for you to keep, but *if you exceeded the credits due to forgetting to turn off your clusters, mining bitcoins, etc. then you will be responsible for paying the extra bill.*
 
 Now you are ready to run applications using Amazon cloud. But before you do that let's write some code and run it locally.
 
 ### B. Download Spark
 
-Go to `https://spark.apache.org/downloads.html`. Choose Spark release 2.4.0, package type "Pre-built for Apache Hadoop 2.7 and later". Download the tgz file.
+Go to `https://spark.apache.org/downloads.html`. Choose Spark release 2.4.3, package type "Pre-built for Apache Hadoop 2.7 and later". Download the tgz file.
 
 Unzip the tgz file somewhere in your computer. The rest of the document assumes you place the spark directory in `/usr/local`; update the links if not.
 
@@ -76,7 +94,7 @@ java -cp "/usr/local/spark-2.4.0-bin-hadoop2.7/jars/*:." HW6 <path to the flight
 
 Some notes on modifying the above commands:
 
-- Make sure that you use the fully-qualified directory path (starting from root, "/" on Mac, "C:/" on Windows) if you use some other path.
+- Make sure that you use the fully-qualified directory path (starting from root, "/" on Mac, "C:/" on Windows) if you use some other path. The paths above are for a Linux system where they had spark-2.4.0, your path will likely be different
 - Use ";" instead of ":" as the classpath separator on Windows
 
 If you are using an IDE:
@@ -100,17 +118,37 @@ We will use Amazon's [Elastic Map Reduce](https://aws.amazon.com/emr/) (EMR) to 
 
     This creates `HW6.jar` that includes all `.class` files inside your current directory.
 
-2. Login to [S3](https://s3.console.aws.amazon.com/s3/home) and create a "bucket." S3 is Amazon's cloud storage service, and a bucket is similar to a folder. Give your bucket a meaningful name, and leave the settings as default. Upload the jar file that you created in Step 1 to that bucket by selecting that file from your local drive and click "Upload" once you have selected the file.
+2. Go to the "AWS Console" from the Vocareum landing page as we saw in the instructions above, the page should look like this:
 
-3. Login to [EMR](https://console.aws.amazon.com/elasticmapreduce/home?region=us-east-1). Make sure you select `US East (N. Virginia)` or `US East (Ohio)` on the upper right. This is because the full, public data file that we will use is stored there, so it will be faster to access from a machine located elsewhere in the world.
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/aws_console.PNG" width="700"/>
 
-4. We will now launch a three node m4.large EMR cluster (default) with Spark to execute the code. m4.large is an "instance type" on AWS, which is analogous to some set of allocated resources on a server. Go to the **Create Cluster** – **Advanced Options** in the Amazon EMR console. Scroll down to the **Software Configuration** section to add Spark as an application. Select the proper options and make sure that your screen looks like this:
+3. Browse through the listed options or search for "S3" in the search box to open up the S3 console which should look like this:
 
-    <img src="https://courses.cs.washington.edu/courses/cse344/17au/assets/hw6-createCluster.png" width="700"/>
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/s3_landing_page.PNG" width="700"/>
 
-    If m4.large is not available (unlikely), choose another instance size with a similar name (m4.xlarge, m5.large, etc.). You can find out about other instances on the [AWS website](https://aws.amazon.com/ec2/instance-types/).
+4. Create a bucket by clicking "+ Create Bucket" in the top left and name it whatever you want. For the rest of these instructions we will assume you are using a bucket named "cse414-bucket" but you can name it whatever you like. When creating the bucket, keep all of the default settings.
 
-5. This is the big one! Next, scroll to the **Steps** section near the bottom of the page and select **Spark application** and click **Configure**. A "step" is a single Spark job to be executed. You can specify multiple Spark jobs to be executed one after another in a cluster. Add a Spark application step by filling in the textboxes so that your screen looks like this:
+5. Click into the newly created bucket and select "Upload" and upload your HW6.jar file. **REMEMBER: You need to recompile your Java program with the correct line uncommented as we stated in step 1**
+
+6. Go back to the "AWS Console" from step 3 and now search or browse for "EMR". Clicking on it will take you to a page that looks similar to the image below:
+
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/emr_landing_page.PNG" width="700"/>
+
+    **NOTE:** Above the EMR console already has some created clusters, yours will not on the first time you end up on this page.
+
+7. Make sure that you are in `US East (N. Virginia)` or `US East (Ohio)` in the top right of the page. This is because the full, public data file that we will use is stored there, so it will be faster to access from a machine located elsewhere in the world.
+
+8. Select **Create Cluster** to begin the process of creating a new cluster it will take you to a page that looks like this:
+
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/advanced_options.PNG" width="700"/>
+
+    You need to select "Go to advanced options" at the top so we can more accurately specify our configuration.
+
+9. On this first page you need to select the most recent release of EMR (emr-5.23.0) as well as `Hadoop 2.8.5` and `Spark 2.4.0`. You can uncheck the rest of the boxes. It should then look like the following image:
+
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/software_settings.PNG" width="700"/>
+
+10. This is the big one! Next, scroll to the **Add Steps** section near the bottom of the page and select **Spark application** from the "Step Type" dropdown and then click **Configure**. A "step" is a single Spark job to be executed. You can specify multiple Spark jobs to be executed one after another in a cluster. Add a Spark application step by filling in the textboxes so that your screen looks like this:
 
     <img src="https://courses.cs.washington.edu/courses/cse344/17au/assets/hw6-step.png" width="700"/>
 
@@ -129,23 +167,37 @@ We will use Amazon's [Elastic Map Reduce](https://aws.amazon.com/emr/) (EMR) to 
     Make sure you fill out the correct bucket names. There are two arguments listed (and separated by a space, as if you were running the program locally):
 
     - The first one specifies where the input data file directory is.
-    - The second one specifies where you want the output to be written. EMR can only write to a bucket, but you can download the output from the bucket afterwards. Use the same bucket where you uploaded the HW6 jar file, but specify a new folder like `s3://<your bucket containing the jar file>/output`.
+    - The second one specifies where you want the output to be written. EMR can only write to a bucket, but you can download the output from the bucket afterwards. Use the same bucket where you uploaded the HW6 jar file, but specify a new folder like `s3://cse414-bucket/output`. Remember to change the bucket name `cse414-bucket` to whatever you named your bucket in the previous steps.
+
+    **IMPORTANT: In your s3 bucket, you should not manually create an output folder, if you create it before you run your application there will be errors as the application creates the output folder itself. Before each subsequent run you must delete the output folder inside of the bucket in order to avoid getting errors**
 
     Change **Action on failure** to **Terminate cluster** (or else you will need to terminate the cluster manually). Then click **Add**.
 
-6. Back to the main screen, now check the **Auto-terminate cluster after the last step is completed** option at the bottom of the page, so the cluster will automatically shut down once your Spark application is finished. Click **Next**.
+    The last step before we move on is to check the box that says **Auto-terminate cluster after the last step is completed.** This will ensure that your cluster shuts down and doesn't expend more credits then necessary after it is finished.
 
-7. On the next screen you get to choose how many machines you want in your cluster. For this assignment **1 master instance and 2 core (i.e., worker) instances of m4.large should be enough**. You are free to add more or pick other types, but make sure you think about the price tag first... Grabbing 100 machines at once will probably drain your credit in a snap :(. Click **Next**.
+    Finally click **Next** at the bottom of the page to take you to the next step of cluster configuration.
 
-8. Under **General Options** uncheck the **Termination protection** option. We recommend that you allow the default logging information in case you need to debug a failure. Click **Next**.
+11. On this page we want to launch a three node m4.large EMR cluster with Spark to execute the code. m4.large is an "instance type" on AWS, which is analogous to some set of allocated resources on a server. You can edit the instance type by clicking on the edit icon under the "instance type" column as seen below:
 
-9. You can optionally create an [EC2 pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) if you want to ssh into the machines you are about to create.
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/hardware.PNG" width="700"/>
 
-10. Click **Create cluster** once you are done and your cluster will start spinning up!
+    The image above currently has the "Master" node set to an m3.xlarge. We suggest that you change all of your nodes to type m4.large to be the most efficient with your credits.
+
+    Click **Next** to proceed to the next step.
+
+12. On the final page you need to uncheck the box that says "Termination Protection" as seen in the image below:
+
+    <img src="https://courses.cs.washington.edu/courses/cse414/19sp/assets/hw6/markdown_imgs/termination_protection.PNG" width="700"/>
+
+    Click **Next** to proceed to the final step.
+
+13. In this step you can leave all the default settings, however, you can optionally create an [EC2 pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) if you want to ssh into the machines you are about to create.
+
+14. Click **Create cluster** once you are done and your cluster will start spinning up!
 
 It will take a bit for AWS to both start the machines and run your Spark job. As a reference, it took 10 mins to run the `warmup` job on EMR using 1 master and 2 core nodes. You can monitor the status of your cluster on the EMR homepage.
 
-Use the "Clone" cluster button to copy the settings into a new job when you run your actual HW problems. **Each time you want to run a new EMR job, make sure to recompile your solution and pack it into a jar for uploading into S3!**
+Use the "Clone" cluster button to copy the settings into a new job when you run your actual HW problems. **Each time you want to run a new EMR job, make sure to recompile your solution and pack it into a jar for uploading into S3 as well as delete the output folder from the previous run**
 
 **Make sure you terminate the cluster!** It should do so if you selected the options above. You should check this each time you look at the HW, just to make sure you don't get charged for leaving a cluster running.
 
