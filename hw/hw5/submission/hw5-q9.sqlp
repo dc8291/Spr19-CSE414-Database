@@ -19,3 +19,23 @@ AND LOWER(c1.`-car_code`) in sc.scode
 AND LOWER(c2.`-car_code`) in mc.mcode
 AND LOWER(c2.`-car_code`) in sc.scode
 ;
+
+/*
+TA suggestion?
+
+SELECT DISTINCT c1.name as first_country, c2.name as second_country
+FROM hw5.world x,x.mondial.country c1, x.mondial.country c2,
+  (SELECT m_country as mcode
+   FROM x.mondial.mountain m, split(m.`-country`, ' ') as m_country) as mc1,
+  (SELECT s_country as scode
+   FROM x.mondial.sea s, split(s.`-country`, ' ') as s_country) as sc1,
+  (SELECT m_country as mcode
+   FROM x.mondial.mountain m, split(m.`-country`, ' ') as m_country) as mc2,
+  (SELECT s_country as scode
+   FROM x.mondial.sea s, split(s.`-country`, ' ') as s_country) as sc2
+WHERE c1.`-car_code` > c2.`-car_code`
+AND c1.`-car_code` = mc1
+AND c1.`-car_code` = sc1
+AND c2.`-car_code` = mc2
+AND c2.`-car_code` = sc2;
+*/
