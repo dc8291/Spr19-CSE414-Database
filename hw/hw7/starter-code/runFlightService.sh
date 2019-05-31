@@ -1,1 +1,1 @@
-java -cp "lib/*:." FlightService
+java -cp "lib/*;." FlightService

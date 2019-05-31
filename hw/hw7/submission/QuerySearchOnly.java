@@ -229,8 +229,8 @@ public class QuerySearchOnly
             .append('\n');
           counter++;
       }
-      if (!directFlight){
-        int numberNeeded = numberOfItineraries - counter;
+      int numberNeeded = numberOfItineraries - counter;
+      if (!directFlight && numberNeeded > 0){
         listOfFlights = indirectFlights(originCity, destinationCity, dayOfMonth, numberNeeded);
         for (int i = 0; i < listOfFlights.size(); i+=2)
         {

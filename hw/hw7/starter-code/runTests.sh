@@ -15,7 +15,7 @@ rm -rf "${out}"
 mkdir "${out}"
 
 echo "compiling from " $src
-javac -cp "lib/junit-4.12.jar:lib/hamcrest-core-1.3.jar:./lib/sqljdbc4.jar:${out}" -d "${out}" "${src}"/*.java
+javac -cp "lib/junit-4.12.jar;lib/hamcrest-core-1.3.jar;./lib/sqljdbc4.jar;${out}" -d "${out}" "${src}"/*.java
 
 # create jar file
 cd "${out}";
@@ -23,5 +23,7 @@ jar -cvf out.jar *
 cd -;
 
 # run actual tests
-java -Dfolder="${cases}" -cp "lib/junit-4.12.jar:lib/hamcrest-core-1.3.jar:./lib/sqljdbc4.jar:${out}/out.jar" \
+java -Dfolder="${cases}" -cp "lib/junit-4.12.jar;lib/hamcrest-core-1.3.jar;./lib/sqljdbc4.jar;${out}/out.jar" \
   org.junit.runner.JUnitCore Grader
+
+sleep 100
