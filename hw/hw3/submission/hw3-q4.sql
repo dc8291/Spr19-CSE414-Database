@@ -6,9 +6,11 @@
 
 SELECT f.dest_city as city
 FROM Flights as f
-WHERE NOT EXISTS (SELECT f.dest_city
-                    WHERE f.origin_city = 'Seattle WA'
-                    GROUP BY f.dest_city)
+WHERE NOT EXISTS (SELECT f1.dest_city
+                    FROM Flights as f1
+                    WHERE f1.origin_city = 'Seattle WA'
+                    AND f1.dest_city = f.dest_city
+                    GROUP BY f1.dest_city)
       AND EXISTS (SELECT f2.dest_city as dest_city
       FROM Flights as f1, Flights as f2
       WHERE f1.dest_city = f2.origin_city
