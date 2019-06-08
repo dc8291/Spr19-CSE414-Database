@@ -1,0 +1,158 @@
+# Same user reserves two flights on different computers
+#
+# user 1a
+#
+create user1 user1 10000
+login user1 user1
+search "Seattle WA" "Boston MA" 1 14 1
+book 0
+reservations
+quit
+*
+#
+# first scenario: user 1a succeeds in creating and shows one result
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Goodbye
+|
+#
+# second scenario: user 1a fails in creating and shows one result
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Goodbye
+|
+#
+# third scenario: user 1a succeeds in creating and shows two result
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Reservation 2 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Goodbye
+|
+#
+# fourth scenario: user 1a fails in creating and shows two result
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Reservation 2 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Goodbye
+|
+#
+# fifth scenario: user 1a fails in creating and shows two result
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Booked flight(s), reservation ID: 2
+Reservation 1 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Reservation 2 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Goodbye
+*
+#
+# user 1b
+#
+create user1 user1 10000
+login user1 user1
+search "Seattle WA" "Boston MA" 1 10 1
+book 0 
+reservations
+quit
+*
+Itinerary 0: 1 flight(s), 309 minutes
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+
+*
+*
+#
+# first scenario: user 1b succeeds in creating and shows one result
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 309 minutes
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Goodbye
+|
+#
+# second scenario: user 1b fails in creating and shows one result
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 309 minutes
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Goodbye
+|
+#
+# third scenario: user 1b succeeds in creating and shows two result
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 309 minutes
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Reservation 2 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Goodbye
+|
+#
+# fourth scenario: user 1b fails in creating and shows two result
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 309 minutes
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Booked flight(s), reservation ID: 1
+Reservation 1 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Reservation 2 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Goodbye
+|
+#
+# fifth scenario: user 1b fails in creating and shows two result
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 309 minutes
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Booked flight(s), reservation ID: 2
+Reservation 1 paid: false
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Reservation 2 paid: false
+ID: 708454 Day: 10 Carrier: AS Number: 734 Origin: Seattle WA Dest: Boston MA Duration: 309 Capacity: 5 Price: 677
+Goodbye
+*

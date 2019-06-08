@@ -1,0 +1,119 @@
+# This tests one user booking same flight concurrently.
+#
+# user 1a
+#
+create user1 user1 10000
+login user1 user1
+search "Seattle WA" "Boston MA" 1 14 2
+book 1
+quit
+*
+#
+# expected output for user 1a
+#
+# first scenario: user 1a succeeds in creating user and booking
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booked flight(s), reservation ID: 1
+Goodbye
+|
+#
+# second scenario: user 1a succeeds in creating user but fails to book
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booking failed
+Goodbye
+|
+#
+# third scenario: user 1a fails to create user but succeeds in booking
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booked flight(s), reservation ID: 1
+Goodbye
+|
+#
+# fourth scenario: user 1a fails to create user and booking
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booking failed
+Goodbye
+*
+#
+# user 1b
+#
+create user1 user1 10000
+login user1 user1
+search "Seattle WA" "Boston MA" 1 14 2
+book 1
+quit
+*
+#
+# expected output for user 1b
+#
+# first scenario: user 1b succeeds in creating user and booking
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booked flight(s), reservation ID: 1
+Goodbye
+|
+#
+# second scenario: user 1b succeeds in creating user but fails to book
+#
+Created user user1
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booking failed
+Goodbye
+|
+#
+# third scenario: user 1b fails to create user but succeeds in booking
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booked flight(s), reservation ID: 1
+Goodbye
+|
+#
+# fourth scenario: user 1b fails to create user and booking
+#
+Failed to create user
+Logged in as user1
+Itinerary 0: 1 flight(s), 294 minutes
+ID: 730092 Day: 14 Carrier: B6 Number: 1698 Origin: Seattle WA Dest: Boston MA Duration: 294 Capacity: 8 Price: 807
+Itinerary 1: 1 flight(s), 304 minutes
+ID: 729128 Day: 14 Carrier: B6 Number: 498 Origin: Seattle WA Dest: Boston MA Duration: 304 Capacity: 7 Price: 888
+Booking failed
+Goodbye
+*
