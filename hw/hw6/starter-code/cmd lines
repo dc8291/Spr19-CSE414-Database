@@ -1,0 +1,7 @@
+cd OneDrive\School\CSE414\cse414-dc8291\hw\hw6\starter-code
+
+javac -cp "C:/spark-2.4.3-bin-hadoop2.7/jars/*" HW6.java
+
+java -cp "C:/spark-2.4.3-bin-hadoop2.7/jars/*;." HW6 C:\Users\dc829\OneDrive\School\*CSE414\cse414-dc8291\hw\hw6\starter-code\flights_small C:\Users\dc829\OneDrive\School\CSE414\cse414-dc8291\hw\hw6\output
+
+jar cf HW6.jar *.class

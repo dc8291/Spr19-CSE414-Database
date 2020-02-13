@@ -57,6 +57,18 @@ public class QuerySearchOnly
     }
   }
 
+  class Itinerary implements Comparable<Itinerary>
+  {
+    public Flight f1;
+    public Flight f2;
+    public int time;
+
+    @Override
+    public int compareTo(Itinerary x){
+      return this.time - x.time;
+    }
+  }
+
   public QuerySearchOnly(String configFilename)
   {
     this.configFilename = configFilename;
@@ -218,34 +230,53 @@ public class QuerySearchOnly
     // You may use the `Flight` class (defined above).
     StringBuffer sb = new StringBuffer();
     ArrayList<Flight> listOfFlights = new ArrayList<Flight>();
+    ArrayList<Itinerary> listOfItinerary = new ArrayList<Itinerary>();
     try
     {
       listOfFlights = directFlights(originCity, destinationCity, dayOfMonth, numberOfItineraries);
       int counter = 0;
       for (int i = 0; i < listOfFlights.size(); i++)
       {
-          sb.append("Itinerary " + counter + ": 1 flight(s), " + listOfFlights.get(i).time + " minutes\n")
-            .append(listOfFlights.get(i).toString())
-            .append('\n');
-          counter++;
+        Itinerary temp = new Itinerary();
+        temp.f1 = listOfFlights.get(i);
+        temp.f2 = null;
+        temp.time = listOfFlights.get(i).time;
+        listOfItinerary.add(temp);
+        counter++;
       }
       int numberNeeded = numberOfItineraries - counter;
       if (!directFlight && numberNeeded > 0){
         listOfFlights = indirectFlights(originCity, destinationCity, dayOfMonth, numberNeeded);
         for (int i = 0; i < listOfFlights.size(); i+=2)
         {
-            int totalTime = listOfFlights.get(i).time + listOfFlights.get(i + 1).time;
-            sb.append("Itinerary " + counter + ": 2 flight(s), " + totalTime + " minutes\n")
-              .append(listOfFlights.get(i).toString())
-              .append('\n')
-              .append(listOfFlights.get(i+1).toString())
-              .append('\n');
-            counter++;
+          int totalTime = listOfFlights.get(i).time + listOfFlights.get(i + 1).time;
+          Itinerary temp = new Itinerary();
+          temp.f1 = listOfFlights.get(i);
+          temp.f2 = listOfFlights.get(i+1);
+          temp.time = totalTime;
+          listOfItinerary.add(temp);
+          counter++;
         }
       }
       if(counter == 0)
       {
         sb.append("No flights match your selection\n");
+      } else {
+        for (int i = 0; i < listOfItinerary.size(); i++){
+          Collections.sort(listOfItinerary);
+          Itinerary temp = listOfItinerary.get(i);
+          if (temp.f2 == null){
+            sb.append("Itinerary " + i + ": 1 flight(s), " + temp.time + " minutes\n")
+              .append(temp.f1.toString())
+              .append('\n');
+          } else {
+            sb.append("Itinerary " + i + ": 2 flight(s), " + temp.time + " minutes\n")
+                .append(temp.f1.toString())
+                .append('\n')
+                .append(temp.f2.toString())
+                .append('\n');
+          }
+        }
       }
     } catch (SQLException e) { e.printStackTrace(); }
 
